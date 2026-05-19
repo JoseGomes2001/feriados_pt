@@ -8,7 +8,7 @@ Os feriados nacionais são calculados localmente (offline). Os feriados municipa
 
 ```yaml
 dependencies:
-  feriados_pt: ^0.2.0
+  feriados_pt: ^0.2.1
 ```
 
 ## Utilização

@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Correcção de ficheiros em falta na publicação inicial da 0.2.0.
+
 ## 0.2.0
 
 - Added `getHolidaysByMunicipality(year, municipio)` — fetches municipal holidays from the SAPO API for a specific municipality.
