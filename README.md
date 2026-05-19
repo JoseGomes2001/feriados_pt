@@ -1,17 +1,19 @@
 # feriados_pt
 
-Feriados nacionais portugueses para Dart e Flutter.
+Feriados portugueses para Dart e Flutter — nacionais, municipais e regionais.
 
-Calcula os feriados obrigatórios para qualquer ano, incluindo os feriados móveis baseados na Páscoa, com tratamento correto do período de supressão de 2013–2015.
+Os feriados nacionais são calculados localmente (offline). Os feriados municipais e regionais são obtidos através da API da SAPO.
 
 ## Instalação
 
 ```yaml
 dependencies:
-  feriados_pt: ^0.1.0
+  feriados_pt: ^0.2.0
 ```
 
 ## Utilização
+
+### Feriados nacionais (offline)
 
 ```dart
 import 'package:feriados_pt/feriados_pt.dart';
@@ -29,14 +31,37 @@ isHoliday(DateTime(2026, 4, 25)); // true
 final h = holidayAt(DateTime(2026, 4, 25));
 print(h?.name); // Dia da Liberdade
 
-// Contar dias úteis excluindo feriados e fins de semana
+// Dias úteis excluindo feriados e fins de semana
 bool isWorkingDay(DateTime d) =>
     d.weekday != DateTime.saturday &&
     d.weekday != DateTime.sunday &&
     !isHoliday(d);
 ```
 
-## Feriados incluídos
+### Feriados municipais e regionais (via API SAPO)
+
+```dart
+// Feriados de um município pelo enum
+final local = await getHolidaysByMunicipality(2026, Municipio.lisboa);
+
+// Lookup por nome (tolerante a maiúsculas e acentos)
+final local = await getHolidaysByMunicipality(2026, Municipio.find('braga'));
+
+// Incluir também os feriados nacionais
+final todos = await getHolidaysByMunicipality(
+  2026,
+  Municipio.porto,
+  includeNational: true,
+);
+
+// Todos os municipais de Portugal
+final municipais = await getMunicipalHolidays(2026);
+
+// Feriados regionais (Açores e Madeira)
+final regionais = await getRegionalHolidays(2026);
+```
+
+## Feriados nacionais incluídos
 
 | Data | Feriado | Tipo |
 |------|---------|------|
@@ -58,17 +83,27 @@ bool isWorkingDay(DateTime d) =>
 
 ## API
 
-### `List<Holiday> getHolidays(int year)`
+### Feriados nacionais
 
+#### `List<Holiday> getHolidays(int year)`
 Devolve todos os feriados nacionais obrigatórios para o `year` indicado, ordenados por data.
 
-### `bool isHoliday(DateTime date)`
-
+#### `bool isHoliday(DateTime date)`
 Devolve `true` se `date` for um feriado nacional. A componente de hora é ignorada.
 
-### `Holiday? holidayAt(DateTime date)`
-
+#### `Holiday? holidayAt(DateTime date)`
 Devolve o `Holiday` correspondente a `date`, ou `null` se não for feriado.
+
+### Feriados municipais e regionais
+
+#### `Future<List<Holiday>> getHolidaysByMunicipality(int year, Municipio municipio, {bool includeNational})`
+Devolve os feriados do município indicado para o `year`. Use `includeNational: true` para incluir também os nacionais.
+
+#### `Future<List<Holiday>> getMunicipalHolidays(int year)`
+Devolve todos os feriados municipais de Portugal para o `year`.
+
+#### `Future<List<Holiday>> getRegionalHolidays(int year)`
+Devolve os feriados regionais (Açores e Madeira) para o `year`.
 
 ### Classe `Holiday`
 
@@ -77,6 +112,22 @@ Devolve o `Holiday` correspondente a `date`, ou `null` se não for feriado.
 | `date` | `DateTime` | Data do feriado (meia-noite) |
 | `name` | `String` | Nome oficial em português |
 | `kind` | `HolidayKind` | `fixed` ou `moveable` |
+| `scope` | `HolidayScope` | `national`, `regional` ou `municipal` |
+| `description` | `String?` | Descrição opcional (proveniente da API SAPO) |
+
+### Enum `Municipio`
+
+Enum com todos os municípios portugueses suportados pela API SAPO, com `id` e `nome`.
+
+```dart
+Municipio.lisboa.id;    // '1106'
+Municipio.lisboa.nome;  // 'Lisboa'
+
+// Lookup por nome
+Municipio.find('viana do castelo'); // Municipio.vianaDoCastelo
+```
+
+Para municípios homónimos usa o nome completo: `Municipio.lagoaAlgarve` / `Municipio.lagoaAcores`, `Municipio.calhetaMadeira` / `Municipio.calhetaAcores`.
 
 ## Licença
 
