@@ -1,19 +1,34 @@
-/// Portuguese national public holidays for Dart and Flutter.
+/// Portuguese public holidays for Dart and Flutter.
 ///
+/// **Offline (national holidays):**
 /// ```dart
 /// import 'package:feriados_pt/feriados_pt.dart';
 ///
-/// // List all holidays for a year
 /// final holidays = getHolidays(2026);
+/// isHoliday(DateTime.now());
+/// holidayAt(DateTime(2026, 4, 25))?.name; // Dia da Liberdade
+/// ```
 ///
-/// // Check if today is a holiday
-/// if (isHoliday(DateTime.now())) { ... }
+/// **Online (municipal / regional holidays via SAPO API):**
+/// ```dart
+/// // Feriados do município 1 (Lisboa)
+/// final local = await getHolidaysByMunicipality(2026, '1');
 ///
-/// // Get the holiday name for a date
-/// final h = holidayAt(DateTime(2026, 4, 25));
-/// print(h?.name); // Dia da Liberdade
+/// // Todos os municipais de Portugal
+/// final all = await getMunicipalHolidays(2026);
+///
+/// // Açores e Madeira
+/// final regional = await getRegionalHolidays(2026);
 /// ```
 library feriados_pt;
 
 export 'src/feriados_pt_base.dart'
-    show getHolidays, holidayAt, isHoliday, Holiday, HolidayKind;
+    show getHolidays, holidayAt, isHoliday, Holiday, HolidayKind, HolidayScope;
+
+export 'src/sapo_client.dart'
+    show
+        getHolidaysByMunicipality,
+        getMunicipalHolidays,
+        getRegionalHolidays,
+        Municipio,
+        SapoApiException;

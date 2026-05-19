@@ -1,3 +1,14 @@
+## 0.2.0
+
+- Added `getHolidaysByMunicipality(year, municipio)` — fetches municipal holidays from the SAPO API for a specific municipality.
+- Added `getMunicipalHolidays(year)` — fetches all municipal holidays across Portugal.
+- Added `getRegionalHolidays(year)` — fetches regional holidays for Açores and Madeira.
+- Added `Municipio` enum with all ~300 Portuguese municipalities, each with `id` and `nome` fields.
+- Added `Municipio.find(nome)` — case-insensitive, accent-tolerant lookup by name.
+- Added `HolidayScope` enum (`national`, `regional`, `municipal`) to `Holiday`.
+- Added optional `description` field to `Holiday`.
+- New dependencies: `http`, `xml`.
+
 ## 0.1.0
 
 - Initial release.
