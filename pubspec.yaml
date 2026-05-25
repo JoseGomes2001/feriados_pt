@@ -2,7 +2,7 @@ name: feriados_pt
 description: >-
   Portuguese public holidays for Dart and Flutter — national, municipal and regional.
   Includes correct handling of the 2013–2015 suppression period.
-version: 0.2.2
+version: 0.2.3
 repository: https://github.com/JoseGomes2001/feriados_pt
 
 environment:

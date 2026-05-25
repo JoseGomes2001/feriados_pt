@@ -1,6 +1,9 @@
-## 0.2.2
+## 0.2.3
 
 - Removed named library directive to follow Dart 3 conventions.
+
+## 0.2.2
+
 - Fixed pubspec.yaml description length (was exceeding pub.dev's 180-character limit).
 - Updated dependencies: `http ^1.6.0`, `xml ^7.0.1`, `lints ^6.1.0`, `test ^1.31.1`.
 
