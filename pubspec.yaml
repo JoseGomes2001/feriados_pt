@@ -1,18 +1,17 @@
 name: feriados_pt
 description: >-
-  Portuguese national public holidays for Dart and Flutter.
-  Calculates mandatory holidays for any year, including Easter-based
-  moveable feasts, with correct handling of the 2013–2015 suppression period.
-version: 0.2.1
+  Portuguese public holidays for Dart and Flutter — national, municipal and regional.
+  Includes correct handling of the 2013–2015 suppression period.
+version: 0.2.2
 repository: https://github.com/JoseGomes2001/feriados_pt
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  http: ^1.2.0
-  xml: ^6.5.0
+  http: ^1.6.0
+  xml: ^7.0.1
 
 dev_dependencies:
-  lints: ^4.0.0
-  test: ^1.24.0
+  lints: ^6.1.0
+  test: ^1.31.1
