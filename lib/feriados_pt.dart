@@ -20,7 +20,7 @@
 /// // Açores e Madeira
 /// final regional = await getRegionalHolidays(2026);
 /// ```
-library feriados_pt;
+library;
 
 export 'src/feriados_pt_base.dart'
     show getHolidays, holidayAt, isHoliday, Holiday, HolidayKind, HolidayScope;
